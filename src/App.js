@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
 import CSVReader from 'react-csv-reader';
-
 import './App.css';
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         consumerSecret: 'cs_4cac6aa609fdf9cf8455bf14832052adbf6eea2c',
         version: 'wc/v3',
     });
+    const [progressBarValue, setProgressBarValue] = useState(0);
 
     let variationData = {};
     let dataCsv;
@@ -51,8 +52,10 @@ function App() {
     let productItemData = {};
     let parrentData = [];
     variationData = {};
+    let index = 0;
     const handleImport = async () => {
         for (const item of dataCsv) {
+            index++;
             if (item[nameIndex] !== undefined && item[nameIndex] !== 'Name') {
                 //import từng dòng, nếu variable thì lưu lại id hoặc sku để làm cha, import xong variable thì lấy lại id đã import lưu vào biến,
                 // khi import variation thì check id parent ở trong object parent lớn, nếu trùng thì trả lại id sản phẩm đã import trong woo, import attribute
@@ -150,6 +153,8 @@ function App() {
                             'đã bắn request post Parrent',
                             `products/${parrentDataItem.wooParrentId}/variations`,
                         );
+
+                        setProgressBarValue(Math.floor((index / dataCsv.length) * 100));
                         try {
                             console.log(variationData);
 
@@ -165,6 +170,8 @@ function App() {
                 }
             }
         }
+        setProgressBarValue(100);
+        alert('Done');
     };
 
     const handleDeleteAll = () => {
@@ -272,6 +279,7 @@ function App() {
                 console.log(error.response.data);
             });
     };
+
     return (
         <div className="App">
             <div>
@@ -287,6 +295,10 @@ function App() {
 
             <div>
                 <button onClick={importMau}>Import mẫu</button>
+            </div>
+            <div>
+                <label htmlFor="file">Quá trình xử lý import:</label>
+                <progress id="file" value={progressBarValue} max="100"></progress>
             </div>
         </div>
     );
