@@ -1,0 +1,127 @@
+.App {
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    background-color: rgb(223, 223, 223);
+    text-align: center;
+}
+.store-api-info {
+    background-color: rgb(184, 189, 189);
+    text-align: center;
+}
+.store-info-title-lbl {
+    font-size: 1.8rem;
+    margin: 10px 0 0 0;
+}
+.public-key-lbl,
+.secret-key-lbl {
+    font-size: 1.6rem;
+    margin-right: 8px;
+}
+.submit-btn {
+    margin: 10px 0 10px 0;
+    background-color: rgb(42, 116, 158);
+    border: none;
+    color: white;
+    transition: all ease 0.6s;
+
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 6px 28px;
+    &:hover {
+        background-color: rgba(97, 177, 223, 0.8);
+        color: black;
+        cursor: pointer;
+    }
+}
+.csv-container {
+    background-color: rgb(207, 207, 207);
+    text-align: center;
+    padding: 0px 0 10px 0;
+}
+.csv-lbl {
+    font-size: 1.8rem;
+}
+.functions-container {
+    background-color: rgb(190, 190, 190);
+    padding: 10px 0 0 0;
+    text-align: center;
+    height: 80px;
+}
+.function-lbl {
+    margin: 0;
+    font-size: 1.8rem;
+}
+.functions-btns {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.import-btn,
+.delelte-all-btn,
+.test-btn {
+    background-color: rgb(56, 132, 177);
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 6px 28px;
+    margin: 10px;
+    transition: all ease 0.6s;
+    &:hover {
+        background-color: rgba(97, 177, 223, 0.8);
+        cursor: pointer;
+        transform: scale(1.1);
+        color: black;
+    }
+}
+.progress-container {
+    background-color: rgb(233, 233, 233);
+    padding: 0px 0 10px 0;
+    text-align: center;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.process-lbl {
+    margin: 10px 0 10px 0;
+    font-size: 1.8rem;
+}
+.progress-bar {
+    width: 80%;
+    border: 1px solid #b0b0b0;
+    border-radius: 4px;
+}
+.order-function-container {
+    background-color: rgb(194, 193, 193);
+    padding: 0px 0 10px 0;
+    text-align: center;
+}
+.order-lbl {
+    margin: 10px 0 10px 0;
+    font-size: 1.8rem;
+}
+.list-orders-btn,
+.list-customers-btn,
+.list-products-btn,
+.list-payment-gate-btn,
+.list-plugins-btn {
+    background-color: rgb(56, 132, 177);
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 6px 28px;
+    margin: 10px;
+    transition: all ease 0.6s;
+    &:hover {
+        background-color: rgba(97, 177, 223, 0.8);
+        cursor: pointer;
+        transform: scale(1.1);
+        color: black;
+    }
+}
