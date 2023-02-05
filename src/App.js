@@ -15,6 +15,7 @@ function App() {
     const [publicKey, setPublicKey] = useState(localStorage.getItem('publicKeyWoo') || '');
     const [secretKey, setSecretKey] = useState(localStorage.getItem('secretKeyWoo') || '');
     const [importLogs, setImportLogs] = useState([]);
+    const [orders, setOrders] = useState([]);
     let WooCommerce;
     let siteUrlApi;
     let publicKeyWoo;
@@ -73,10 +74,8 @@ function App() {
         attribute3ValueIndex = dataCsv[0].indexOf('Attribute 3 value(s)');
         attribute3NameIndex = dataCsv[0].indexOf('Attribute 3 name');
     };
-    let arrayImageUrls = [];
     let productItemData = {};
     let parrentData = [];
-    variationData = {};
     let index = 0;
     const handleImport = async () => {
         if (dataCsv) {
@@ -87,6 +86,8 @@ function App() {
                     // khi import variation thì check id parent ở trong object parent lớn, nếu trùng thì trả lại id sản phẩm đã import trong woo, import attribute
                     //import từng dòng
                     if (item[typeIndex] === 'variable' || item[typeIndex] === 'simple') {
+                        let arrayImageUrls = [];
+
                         let imageUrls = item[imageIndex].split(',' || ' ' || ', ');
                         //xử lý đưa image url vô arr
                         imageUrls.forEach((imageUrl) => {
@@ -103,8 +104,8 @@ function App() {
                         productItemData.regular_price = item[regular_priceIndex];
                         productItemData.description = item[descriptionIndex];
                         productItemData.short_description = item[shortDescIndex];
-                        productItemData.categories = [{ id: 114 }];
-                        // productItemData.images = arrayImageUrls;
+                        productItemData.categories = [{ id: 24 }];
+                        productItemData.images = arrayImageUrls;
                         productItemData.meta_data = [
                             {
                                 key: 'fifu_list_url',
@@ -346,7 +347,18 @@ function App() {
             alert('Vui lòng điền đủ thông tin store');
         }
     };
-    const handleListOrders = () => {};
+    const handleListOrders = () => {
+        if (siteUrlFromWooApi) {
+            WooCommerce.get('orders')
+                .then((response) => {
+                    setOrders(response.data);
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                });
+        }
+    };
     const handleListCustomers = () => {};
     const handleListPaymentgate = () => {};
     const handleListProducts = () => {};
@@ -428,12 +440,16 @@ function App() {
                     Quá trình xử lý import: <span>{progressBarValue}%</span>
                 </h2>
                 <progress className="progress-bar" id="file" value={progressBarValue} max="100"></progress>
-                {importLogs && (
+                {importLogs.length > 0 && (
                     <div className="import-logs">
-                        {importLogs.map((item) => (
-                            <a target="_blank" href={item}>
-                                {item}
-                            </a>
+                        {importLogs.map((item, index) => (
+                            <p>
+                                {' '}
+                                <span>{`${index}. `}</span>
+                                <a target="_blank" rel="noreferrer" href={item}>
+                                    {item}
+                                </a>
+                            </p>
                         ))}
                     </div>
                 )}
@@ -458,6 +474,32 @@ function App() {
                 <button className="list-plugins-btn" onClick={handleListPlugins}>
                     List plugins
                 </button>
+            </div>
+            <div className="results-container">
+                {orders.length > 0 && (
+                    <div className="orders-result">
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Status</th>
+                                <th>Name</th>
+
+                                <th>Total</th>
+                            </tr>
+                            {orders.map((order, index) => {
+                                return (
+                                    <tr>
+                                        <th>{order.id}</th>
+                                        <th>{order.status}</th>
+                                        <th>{order.billing.last_name}</th>
+
+                                        <th>{order.total}</th>
+                                    </tr>
+                                );
+                            })}
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     );

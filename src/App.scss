@@ -125,3 +125,50 @@
         color: black;
     }
 }
+
+.import-logs {
+    margin-top: 20px;
+    width: 80%;
+    max-height: 320px;
+    overflow-y: scroll;
+    border: #b0b0b0 2px solid;
+    border-radius: 4px;
+}
+.results-container {
+    background-color: rgb(190, 190, 190);
+}
+.results-container {
+    width: 100%;
+    margin: auto;
+    font-size: 1.4rem;
+}
+.orders-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+table {
+    width: 750px;
+    border-collapse: collapse;
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+th {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+td,
+th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 1.4rem;
+}
